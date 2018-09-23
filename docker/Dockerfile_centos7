@@ -1,11 +1,14 @@
 ############################################################
 # Dockerfile that builds and runs dependant docker files
 
-FROM usd-docker/usd:centos7-usd-0.7.5
+FROM usd-docker/usd:latest-centos7-maya2018
 
 MAINTAINER Animal Logic
 COPY ./ /tmp/usd-build/AL_USDMaya
 COPY ./docker/build_alusdmaya.sh /tmp/
+
+ENV MAYA_MAJOR_VERSION 2018
+
 RUN /tmp/build_alusdmaya.sh
 
 # Setup the environment using the location where AL_USDMaya is installed
