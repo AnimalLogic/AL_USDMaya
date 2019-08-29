@@ -1,4 +1,4 @@
-#This is a modified version of the cmake file from usd/sdk/maya/CMakeLists.txt 
+#This is a modified version of the cmake file from usd/sdk/maya/CMakeLists.txt
 cmake_minimum_required(VERSION 2.8.12)
 project(AL_USDMaya)
 
@@ -26,17 +26,12 @@ add_definitions(${_PXR_CXX_DEFINITIONS})
 find_package(Maya REQUIRED)
 
 if(CMAKE_WANT_UFE_BUILD)
-    add_definitions(-DWANT_UFE_BUILD)	
+    add_definitions(-DWANT_UFE_BUILD)
     message(STATUS "UFE Build Enabled")
-    if (NOT UFE_VERSION)
-        message(FATAL_ERROR "UFE_VERSION must be defined when WANT_UFE_BUILD is enabled")
-    endif()
-    message(STATUS "Using UFE version : ${UFE_VERSION}")
-    string(REPLACE "." ";" UFE_VERSION_LIST ${UFE_VERSION})
-    list(GET UFE_VERSION_LIST 0 UFE_MAJOR_VERSION)
-    list(GET UFE_VERSION_LIST 1 UFE_MINOR_VERSION)
-    list(GET UFE_VERSION_LIST 2 UFE_PATCH_LEVEL)
     find_package(UFE REQUIRED)
+    message(STATUS "Using UFE version : ${UFE_VERSION}")
+    message(STATUS "UFE Include directory: ${UFE_INCLUDE_DIR}")
+    message(STATUS "UFE Library directory: ${UFE_LIBRARY_DIR}")
     include_directories(${UFE_INCLUDE_DIR})
 endif()
 
@@ -102,6 +97,7 @@ set(USDUTILS_INCLUDE_LOCATION ${CMAKE_CURRENT_LIST_DIR}/usdutils)
 set(MAYAUTILS_INCLUDE_LOCATION ${CMAKE_CURRENT_LIST_DIR}/mayautils)
 set(USDMAYAUTILS_INCLUDE_LOCATION ${CMAKE_CURRENT_LIST_DIR}/usdmayautils)
 set(MAYATEST_INCLUDE_LOCATION ${CMAKE_CURRENT_LIST_DIR}/mayatest)
+set(USDTRANSACTION_INCLUDE_LOCATION ${CMAKE_CURRENT_LIST_DIR}/usdtransaction)
 
 add_subdirectory(utils)
 add_subdirectory(usdutils)
@@ -110,6 +106,7 @@ if(NOT SKIP_USDMAYA_TESTS)
 endif()	
 add_subdirectory(mayautils)
 add_subdirectory(usdmayautils)
+add_subdirectory(usdtransaction)
 
 add_subdirectory(lib)
 add_subdirectory(plugin)

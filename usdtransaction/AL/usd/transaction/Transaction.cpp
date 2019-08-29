@@ -13,38 +13,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-#include "AL/maya/utils/CommandGuiHelper.h"
-#include "AL/usdmaya/DebugCodes.h"
-#include "AL/usdmaya/cmds/ProxyShapeCommands.h"
-#include "AL/usdmaya/fileio/TransformIterator.h"
-#include "AL/usdmaya/nodes/ProxyShape.h"
-#include "AL/usdmaya/nodes/Transform.h"
-#include "maya/MArgDatabase.h"
-#include "maya/MFnDagNode.h"
-#include "maya/MGlobal.h"
-#include "maya/MSelectionList.h"
-#include "maya/MStatus.h"
-#include "maya/MStringArray.h"
-#include "maya/MSyntax.h"
-#include "maya/MDagPath.h"
-#include "maya/MArgList.h"
+#include "AL/usd/transaction/Transaction.h"
+#include "AL/usd/transaction/TransactionManager.h"
 
-#include <sstream>
-#include <algorithm>
-
-#include <AL/usdmaya/cmds/ProxyShapeSelectCommands.h>
-#include <AL/usdmaya/SelectabilityDB.h>
-#include "AL/usdmaya/utils/Utils.h"
+#include <iostream>
+using namespace pxr;
 
 namespace AL {
-namespace usdmaya {
-namespace cmds {
+namespace usd {
+namespace transaction {
+
+Transaction::Transaction(const pxr::UsdStageWeakPtr& stage, const pxr::SdfLayerHandle& layer)
+  :m_manager(TransactionManager::Get(stage)), m_layer(layer) {}
 
 //----------------------------------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------------------------------
+bool Transaction::Open() const
+{
+  return m_manager.Open(m_layer);
+}
 
 //----------------------------------------------------------------------------------------------------------------------
-} // cmds
-} // usdmaya
+bool Transaction::Close() const
+{
+  return m_manager.Close(m_layer);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+bool Transaction::InProgress() const
+{
+  return m_manager.InProgress(m_layer);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+} // transaction
+} // usd
 } // AL
 //----------------------------------------------------------------------------------------------------------------------
