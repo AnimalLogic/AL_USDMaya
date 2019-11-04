@@ -1,3 +1,7 @@
+## Note: This repository is now read-only
+As of October 2019 we will no longer be updating this repo or accepting new Pull Requests or issues. The code has migrated to the Autodesk [maya-usd repo](https://github.com/Autodesk/maya-usd) where it will continue to be maintained and developed by Animal Logic, Autodesk, Luma Pictures and others. 
+
+
 ## What is AL_USDMaya?
 Represent Maya data in Maya, and USD data in USD -  for example, we use AL_USDMaya to allow native Maya entities such as complex maya referenced rigs (and other assets not easily represented in USD) to be embedded in USD scenes and imported into Maya in their native form. The plugin maintains a "live" connection between the USD and Maya scene, and can respond to various events, keeping the Maya and USD scenes in sync. This affords a dynamic user experience which allows artists to swap in and out different representations of objects in their scene (e.g Rigs for Geometry Caches, different levels of detail etc). Additionally, heavyweight scene elements such as sets/crowds can be represented in OpenGL in the Maya viewport, and manipulated either with USD or Maya tools and UI components.
 
